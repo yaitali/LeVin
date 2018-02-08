@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>create casier</title>
+    </h:head>
+    <h:body>
+
+        <h:form id="formCombo">
+
+            <p:growl/>
+            <h:panelGrid columns="2" cellpadding="6">
+                <p:outputLabel id="Casier">
+                    <f:convertNumber type="number" id="Casier"/>
+                </p:outputLabel>
+                <p:selectOneMenu id="c1" value="#{casierController.caveString}" required="true" requiredMessage="vous devez selectionner un">
+
+                    <p:ajax event="change" listener="#{casierController.changeCasier()}"/>
+                    <f:selectItem itemLabel="select une cave" noSelectionOption="true"/>
+                    <f:selectItems var="casier" value="#{casierController.caveList}" itemLabel="#{casier.nomCave}" itemValue="#{casier.idCave}"/>
+                </p:selectOneMenu>
+            </h:panelGrid>
+        </h:form>
+        <h:form id="formInput">
+            <p:growl/>
+            <h:panelGrid columns="2" cellpadding="6">
+                <p:outputLabel value="Idcasier" for="IdcasierIn"/>
+
+
+                <p:inputText value="#{casierController.idCasier}" required="true" requiredMessage="the input file idcasier is empty" id="IdcasierIn"/>
+
+
+                <p:outputLabel value="Nomcasier" for="NomcasierIn"/>
+                <p:inputText value="#{casierController.nomCasier}" required="true" requiredMessage="the input file name is empty" id="NomcasierIn"/>
+
+                <p:outputLabel value="NbLigne" for="NbLigneIn"/>
+                <p:inputText value="#{casierController.nbLigne}" required="true" requiredMessage="the input file name is empty" id="NbLigneIn"/>
+
+
+                <p:outputLabel value="Nbcol" for="NbcolIn"/>
+
+                <p:inputText value="#{casierController.nbCol}" required="true" requiredMessage="the input file name is empty" id="NbcolIn"/>
+
+                <p:commandButton value="save casier" action="#{casierController.createCasier()}" update=":formInput :formCombo :formTable" oncomplete="PF('tableWidget').filter();"/>
+
+            </h:panelGrid>
+        </h:form>
+
+        <h:form id="formTable">
+
+            <p:dataTable id="casierTable" var="casier" value="#{casierController.casierList}" rowKey="idCasier" rows="10" 
+                         emptyMessage="il n y a pas de casier" paginator="true" paginatorPosition="bottom" widgetVar="tableWidget">
+                <p:column headerText="nom_casier" filterBy="#{casier.nomCasier}" filterMatchMode="contains">
+                    <h:outputText value="#{casier.nomCasier}" />
+                </p:column>
+
+                <p:column headerText="nb_ligne" filterMatchMode="contains">
+                    <h:outputText value="#{casier.nbLigne}" />
+                </p:column>
+
+                <p:column headerText="nb_colonne" filterMatchMode="contains">
+                    <h:outputText value="#{casier.nbCol}" />
+                </p:column>
+
+                <p:column headerText="delete">
+                    <p:commandButton value="delete" action="#{casierController.delete()}" update=":formTable">
+                        <f:setPropertyActionListener value="#{casier}" target="#{casierController.casier}"/>
+                    </p:commandButton>
+                </p:column>
+
+
+            </p:dataTable>
+        </h:form>
+
+
+
+    </h:body>
+</html>
+

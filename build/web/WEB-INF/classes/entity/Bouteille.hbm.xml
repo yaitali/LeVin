@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 19 mars 2016 19:34:38 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entity.Bouteille" table="bouteille" schema="public" optimistic-lock="version">
+        <id name="idBouteille" type="int">
+            <column name="id_bouteille" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="casier" class="entity.Casier" fetch="select">
+            <column name="id_casier" />
+        </many-to-one>
+        <many-to-one name="vin" class="entity.Vin" fetch="select">
+            <column name="vinid" />
+        </many-to-one>
+        <property name="nomBouteille" type="string">
+            <column name="nom_bouteille" length="100" />
+        </property>
+        <property name="millesime" type="date">
+            <column name="millesime" length="13" />
+        </property>
+        <property name="degreBouteille" type="java.lang.Integer">
+            <column name="degre_bouteille" />
+        </property>
+        <property name="quantiteBouteille" type="java.lang.Integer">
+            <column name="quantite_bouteille" />
+        </property>
+        <property name="volumeBouteille" type="java.lang.Float">
+            <column name="volume_bouteille" precision="8" scale="8" unique="true" />
+        </property>
+        <property name="dateentree" type="date">
+            <column name="dateentree" length="13" />
+        </property>
+        <property name="datesortie" type="date">
+            <column name="datesortie" length="13" />
+        </property>
+    </class>
+</hibernate-mapping>

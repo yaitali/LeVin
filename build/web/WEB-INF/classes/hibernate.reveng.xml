@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<hibernate-reverse-engineering>
+  <schema-selection match-catalog="LeVin" match-schema="public"/>
+  <table-filter match-name="bouteille"/>
+  <table-filter match-name="vin"/>
+  <table-filter match-name="casier"/>
+  <table-filter match-name="appelation"/>
+  <table-filter match-name="typeappelation"/>
+  <table-filter match-name="region"/>
+  <table-filter match-name="pays"/>
+  <table-filter match-name="cave"/>
+  <table-filter match-name="profil"/>
+  <table-filter match-name="users"/>
+</hibernate-reverse-engineering>

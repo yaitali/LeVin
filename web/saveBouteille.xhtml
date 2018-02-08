@@ -1,0 +1,131 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Ajout Bouteille</title>
+    </h:head>
+    <h:body>
+        <h:form id="formCombo1">
+
+            <p:growl/>
+
+            <h:panelGrid columns="2" cellpadding="6">
+                <p:outputLabel id="Bouteille">
+                    <f:convertNumber type="number" id="Bouteille"/>
+                </p:outputLabel>
+
+                <p:selectOneMenu id="b" value="#{bouteilleController.casierString}" required="true" requiredMessage="vous devez selectionner un casier">
+                    <p:ajax event="change" listener="#{bouteilleController.changeCasier()}"/>
+                    <f:selectItem itemLabel="select un casier" noSelectionOption="true"/>
+                    <f:selectItems var="bouteille" value="#{bouteilleController.casierList}" itemLabel="#{bouteille.nomCasier}" itemValue="#{bouteille.idCasier}"/>
+                </p:selectOneMenu>
+            </h:panelGrid>
+        </h:form >
+        <h:form id="formCombo2">
+            <p:growl/>
+
+
+            <h:panelGrid columns="2" cellpadding="6">
+                <p:outputLabel id="Vin"/>
+                <p:selectOneMenu id="v" value="#{bouteilleController.vinString}" required="true" requiredMessage="vous devez selectionner un vin" >
+                    <p:ajax event="change" listener="#{bouteilleController.changeVin()}"/>
+                    <f:selectItem itemLabel="select un vin" noSelectionOption="true"/>
+                    <f:selectItems var="vin" value="#{bouteilleController.vinList}" itemLabel="#{vin.cepage}" itemValue="#{vin.vinid}" />  
+                                
+
+                </p:selectOneMenu>
+            </h:panelGrid>
+        </h:form>
+
+
+        <h:form id="formInput">
+            <p:growl/>
+            <h:panelGrid columns="2" cellpadding="6">
+
+                <p:outputLabel value="IdBouteille" for="IdBouteilleIn"/>
+                <p:inputText value="#{bouteilleController.idBouteille}" required="true" requiredMessage="the input file idcasier is empty" id="IdBouteilleIn"/>
+
+
+                <p:outputLabel value="NomBouteille" for="NomBouteilleIn"/>
+                <p:inputText value="#{bouteilleController.nomBouteille}" required="true" requiredMessage="the input file idcasier is empty" id="NomBouteilleIn"/>
+
+                <p:outputLabel value="Millesime" for="MillesimeIn"/>
+                <p:inputText value="#{bouteilleController.millesime}" required="true" requiredMessage="the input file name is empty" id="MillesimeIn">
+                    <f:convertDateTime pattern="yyyy-mm-dd" type="date"/>
+                </p:inputText>
+
+
+
+                <p:outputLabel value="DegreBouteille" for="DegreBouteilleIn"/>
+                <p:inputText value="#{bouteilleController.degreBouteille}" required="true" requiredMessage="the input file name is empty" id="DegreBouteilleIn"/>
+
+                <p:outputLabel value="QuantiteBouteille" for="QuantiteBouteilleIn"/>
+                <p:inputText value="#{bouteilleController.quantiteBouteille}" required="true" requiredMessage="the input file name is empty" id="QuantiteBouteilleIn"/>
+
+                <p:outputLabel value="VolumeBouteille" for="VolumeBouteilleIn"/>
+                <p:inputText value="#{bouteilleController.volumeBouteille}" required="true" requiredMessage="the input file name is empty" id="VolumeBouteilleIn"/>
+
+                <p:outputLabel value="DateEntree" for="DateEntreeIn"/>
+                <p:inputText value="#{bouteilleController.dateentree}" required="true" requiredMessage="the input file name is empty" id="DateEntreeIn">
+                    <f:convertDateTime pattern="yyyy-mm-dd" type="date"/>
+                </p:inputText>
+
+                <p:outputLabel value="DateSortie" for="DateSortieIn"/>
+                <p:inputText value="#{bouteilleController.datesortie}" required="true" requiredMessage="the input file name is empty" id="DateSortieIn">
+                    <f:convertDateTime pattern="yyyy-mm-dd" type="date"/>
+                </p:inputText>
+
+
+                <p:commandButton value="save bouteille" action="#{bouteilleController.createBouteille()}" update=":formInput :formCombo1 :formCombo2 :formTable" oncomplete="PF('tableWidget').filter();"/>
+
+            </h:panelGrid>
+        </h:form>
+        
+        <h:form id="formTable">
+
+            <p:dataTable id="bouteilleTable" var="bteille" value="#{bouteilleController.bouteilleList}" rowKey="idBouteille" rows="10" 
+                         emptyMessage="il n y a pas de bouteille" paginator="true" paginatorPosition="bottom" widgetVar="tableWidget">
+                <p:column headerText="nomBouteille" filterBy="#{bteille.nomBouteille}" filterMatchMode="contains">
+                    <h:outputText value="#{bteille.nomBouteille}" />
+                </p:column>
+
+                <p:column headerText="millesime" filterBy="#{bteille.millesime}" filterMatchMode="contains">
+                    <h:outputText value="#{bteille.millesime}" />
+                </p:column>
+
+                <p:column headerText="degreBouteille" filterBy="#{bteille.degreBouteille}" filterMatchMode="contains">
+                    <h:outputText value="#{bteille.degreBouteille}" />
+                </p:column>
+
+                <p:column headerText="volumeBouteille" filterBy="#{bteille.volumeBouteille}" filterMatchMode="contains">
+                    <h:outputText value="#{bteille.volumeBouteille}" />
+                </p:column>
+                
+                <p:column headerText="dateentree" filterBy="#{bteille.dateentree}" filterMatchMode="contains">
+                    <h:outputText value="#{bteille.dateentree}" />
+                </p:column>
+                
+                <p:column headerText="datesortie" filterBy="#{bteille.datesortie}" filterMatchMode="contains">
+                    <h:outputText value="#{bteille.degreBouteille}" />
+                </p:column>
+                
+                <p:column headerText="delete">
+                    <p:commandButton value="delete" action="#{bouteilleController.delete()}" update=":formTable">
+                        <f:setPropertyActionListener value="#{bouteille}" target="#{bouteilleController.bouteille}"/>
+                    </p:commandButton>
+                </p:column>
+
+
+            </p:dataTable>
+        </h:form>
+
+
+
+
+    </h:body>
+</html>
+

@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Sauvegarder Cave</title>
+    </h:head>
+    <h:body>
+
+        <h:form id="formCombo">
+
+            <p:growl/>
+            <h:panelGrid columns="2" cellpadding="6">
+                <p:outputLabel id="User"/>
+                <p:selectOneMenu id="c1" value="#{caveController.userString}" required="true" requiredMessage="vous devez selectionner un user">
+                    <p:ajax event="change" listener="#{caveController.changeUsers()}"/>
+                    <f:selectItem itemLabel="select un user" noSelectionOption="true"/>
+                    <f:selectItems var="user" value="#{caveController.userList}" itemLabel="#{user.mail}" itemValue="#{user.mail}"/>
+                </p:selectOneMenu>
+            </h:panelGrid>
+        </h:form>
+
+        <h:form id="formInput">
+            <p:growl/>
+            <h:panelGrid columns="2" cellpadding="6">
+                <p:outputLabel value="Idcave" for="IdcaveIn"/>
+                <p:inputText value="#{caveController.idCave}" required="true" requiredMessage="the input file name is empty" id="IdcaveIn"/>
+
+
+                <p:outputLabel value="Nomcave" for="NomcaveIn"/>
+                <p:inputText value="#{caveController.nomCave}" required="true" requiredMessage="the input file name is empty" id="NomcaveIn"/>                
+                <p:commandButton value="save cave" action="#{caveController.createCave()}" update=":formInput :formCombo :formTable" oncomplete="PF('tableWidget').filter();"/>
+
+            </h:panelGrid>
+        </h:form>
+        <h:form id="formTable">
+
+            <p:dataTable id="caveTable" var="cave" value="#{caveController.caveList}" rowKey="mail" rows="10" 
+                         emptyMessage="il n y a pas de cave" paginator="true" paginatorPosition="bottom" widgetVar="tableWidget">
+                <p:column headerText="idCave" filterBy="#{cave.idCave}" filterMatchMode="contains">
+                    <h:outputText value="#{cave.idCave}" />
+                </p:column>
+
+                <p:column headerText="nomCave" filterBy="#{cave.nomCave}" filterMatchMode="contains">
+                    <h:outputText value="#{cave.nomCave}" />
+                </p:column>
+
+                <p:column headerText="delete">
+                    <p:commandButton value="delete" action="#{caveController.delete()}" update=":formTable">
+                        <f:setPropertyActionListener value="#{cave}" target="#{caveController.cave}"/>
+                    </p:commandButton>
+                </p:column>
+
+
+            </p:dataTable>
+        </h:form>
+    </h:body>
+</html>
+

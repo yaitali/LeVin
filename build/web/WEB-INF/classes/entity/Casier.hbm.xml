@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 19 mars 2016 19:34:38 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entity.Casier" table="casier" schema="public" optimistic-lock="version">
+        <id name="idCasier" type="int">
+            <column name="id_casier" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="cave" class="entity.Cave" fetch="select">
+            <column name="id_cave" />
+        </many-to-one>
+        <property name="nomCasier" type="string">
+            <column name="nom_casier" length="100" />
+        </property>
+        <property name="nbLigne" type="java.lang.Integer">
+            <column name="nb_ligne" />
+        </property>
+        <property name="nbCol" type="java.lang.Integer">
+            <column name="nb_col" />
+        </property>
+        <set name="bouteilles" table="bouteille" cascade="delete" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_casier" />
+            </key>
+            <one-to-many class="entity.Bouteille" />
+        </set>
+    </class>
+</hibernate-mapping>

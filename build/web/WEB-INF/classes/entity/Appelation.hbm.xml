@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 19 mars 2016 19:34:38 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entity.Appelation" table="appelation" schema="public" optimistic-lock="version">
+        <id name="idApp" type="int">
+            <column name="id_app" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="region" class="entity.Region" fetch="select">
+            <column name="id_region" />
+        </many-to-one>
+        <many-to-one name="typeappelation" class="entity.Typeappelation" fetch="select">
+            <column name="id_typeapp" />
+        </many-to-one>
+        <property name="appelation" type="string">
+            <column name="appelation" length="100" />
+        </property>
+        <set name="vins" table="vin"  cascade="delete" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_app" />
+            </key>
+            <one-to-many class="entity.Vin" />
+        </set>
+    </class>
+</hibernate-mapping>

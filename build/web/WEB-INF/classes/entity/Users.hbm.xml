@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 19 mars 2016 19:34:38 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entity.Users" table="users" schema="public" optimistic-lock="version">
+        <id name="mail" type="string">
+            <column name="mail" length="100" />
+            <generator class="assigned" />
+        </id>
+        <property name="nomU" type="string">
+            <column name="nom_u" length="100" />
+        </property>
+        <property name="prenomU" type="string">
+            <column name="prenom_u" length="100" />
+        </property>
+        <property name="login" type="string">
+            <column name="login" length="100" />
+        </property>
+        <property name="mdpass" type="string">
+            <column name="mdpass" length="100" />
+        </property>
+        <property name="tel" type="string">
+            <column name="tel" length="100" />
+        </property>
+        <one-to-one name="profil" class="entity.Profil"></one-to-one>
+        <set name="caves" table="cave" cascade="delete" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="mail" length="100" />
+            </key>
+            <one-to-many class="entity.Cave" />
+        </set>
+    </class>
+</hibernate-mapping>

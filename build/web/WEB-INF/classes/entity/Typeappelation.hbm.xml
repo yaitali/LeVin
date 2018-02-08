@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 19 mars 2016 19:34:38 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="entity.Typeappelation" table="typeappelation" schema="public" optimistic-lock="version">
+        <id name="idTypeapp" type="int">
+            <column name="id_typeapp" />
+            <generator class="assigned" />
+        </id>
+        <property name="nomtypeappe" type="string">
+            <column name="nomtypeappe" length="100" />
+        </property>
+        <set name="appelations" table="appelation" cascade="delete" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_typeapp" />
+            </key>
+            <one-to-many class="entity.Appelation" />
+        </set>
+    </class>
+</hibernate-mapping>
